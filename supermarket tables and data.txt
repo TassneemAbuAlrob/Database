@@ -1,0 +1,138 @@
+create table ADMINN (Fname VARCHAR2(40) NOT NULL,
+                   Mname VARCHAR2(40),
+                   Lname VARCHAR(40) NOT NULL,
+                   email VARCHAR2(50) NOT NULL ,
+                   Pasword VARCHAR2(50) NOT NULL,
+                   country varchar2(50) ,
+                   phone INT,
+                   gender varchar2(50),
+                  admin_num number not null ,
+                  SECURITY_QUESTION varchar2(200),
+                  ANSWER_QUESTION varchar2(200),
+                   primary key(admin_num)
+                   ) ;
+
+ create table customer (Fname VARCHAR2(15) NOT NULL,
+                   Mname VARCHAR2(15),
+                   Lname VARCHAR(15) NOT NULL,
+                   email VARCHAR2(25) NOT NULL ,
+                   Pasword VARCHAR2(20) NOT NULL,
+                   country varchar2(25) ,
+                   phone NUMBER,
+                   gender varchar2(50),
+                   customer_num NUMBER,
+                   SECURITY_QUESTION varchar2(200),
+                   ANSWER_QUESTION varchar2(200),
+                   primary key(customer_num)
+                   ) ; 
+
+create table section ( 
+                       sec_name varchar2(50),
+                       descrption varchar2(40),
+                       admin_num NUMBER,
+                       primary key (sec_name),
+                       foreign key(admin_num) references adminn(admin_num)
+                       );
+
+create table categoryy ( 
+                         catg_name VARCHAR2(50) ,
+                         details varchar2(50),
+                           sec_name varchar2(50),
+                         PRIMARY KEY (catg_name),
+                        foreign key(sec_name) references section(sec_name)
+                        
+                         );    
+
+ create table product ( PRO_NUM NUMBER,
+                    pro_name VARCHAR2(20) ,
+                    price NUMBER ,
+                    DESCRPTION VARCHAR2(60),
+                    catg_name VARCHAR2(50) ,
+                    PRO_QUANTITY number,
+                    primary key(PRO_NUM),
+                    foreign key(catg_name) references categoryy(catg_name)
+                    ); 
+
+ create table bill ( bill_num NUMBER ,
+                     PRO_NUM NUMBER,
+                     Quantity int,
+                    primary key(bill_num),
+                    foreign key(PRO_NUM) references product (PRO_NUM) );
+
+create table orderr (bill_num NUMBER ,
+                     customer_num NUMBER ,
+                     PRODUCT_PRICE FLOAT,
+                    primary key (customer_num,bill_num),
+                    foreign key (customer_num) references customer(customer_num),
+                    foreign key (bill_num) references bill(bill_num) );
+
+create table offer (OFF_num NUMBER ,
+                    OFF_NAME VARCHAR2 ,
+                    OFFER_DATE  DATE,
+                    DISCOUNT  FLOAT,
+                    primary key (OFF_num) );
+
+
+create table BILL_OFFER (OFF_num NUMBER ,
+                         bill_num NUMBER ,
+                    primary key ( OFF_NUM,bill_num),
+                    foreign key ( OFF_NUM) references offer( OFF_NUM),
+                    foreign key (bill_num) references bill(bill_num) );
+
+insert into adminn VALUES('aseel','nasr','masri','aseel2@gmail.com','123456','nablus',5999999,'female',1111,'What is your nickname?','soso');
+insert into adminn VALUES('sondos','nasr','masri','sondos@gmail.com','123','nablus',0588888,'female',2222,'What is your favorite pet? ','dog');
+insert into adminn VALUES('malak','nasr','masri','malak@gmail.com','1234','rammallah',0588884,'female',3333,'What is your nickname?','lolo');
+insert into adminn VALUES('tasneem','amjad','ahmad','tasneem@gmail.com','1456','hebron',05886558,'female',4444,'What is your favorite color?','pink');
+insert into adminn VALUES('ahmad','saleh','henawi','ahmad@gmail.com','1346','nablus',05987456,'male',5555,'What is your favorite color?','green');
+
+insert into customer VALUES('mona','mahmod','akram','mona1@gmail.com','123456','nablus',0591111,'female',111,'What is your favorite pet? ','cat');
+insert into customer VALUES('karam','mahmod','hudhud','karam21@gmail.com','1234','rammallah',05123456,'male',222,'What is your nickname?','koko');
+insert into customer VALUES('jehad','rayan','abweh','jehad7@gmail.com','0000','nablus',05987456,'male',333,'What is your favorite color?','pink');
+insert into customer VALUES('mojahed','rayan','mohamed','mojahed7@gmail.com','m1230*','jenin',05987555,'male',444,'What is your favorite pet? ','dog');
+insert into customer VALUES('motaz','ameer','akram','motaz7@gmail.com','qazwsxedc','nablus',0598444,'male',555,'What is your favorite pet? ','fish');
+
+insert into section values('food-section','fresh',1111);
+insert into section values('deli-section','avaliable soon',5555);
+insert into section values('drinks-section','hot and cold',2222);
+insert into section values('produce-section','from the farm',2222);
+insert into section values('seafood-section','avaliable fresh',4444);
+insert into section values('freezer-section','Multiple items',4444);
+insert into section values('bakery','daily made',1111);
+
+insert into categoryy values('Soft drinks','diat drinks is avaliable','drinks-section');
+insert into categoryy values('meats','many types of meats','food-section');
+insert into categoryy values('fruits','fresh','produce-section');
+insert into categoryy values('vegetables','fresh','produce-section');
+insert into categoryy values('fish','many types avaliable','seafood-section');
+
+insert into product values(10,'cola',3,'plentiful amount','Soft drinks',189);
+insert into product values(20,'Veal',70,'limited amount','meats',338);
+insert into product values(30,'apple',15,'limited amount','fruits',235);
+insert into product values(40,'carrots',75,'plentiful amount','vegetables',117);
+insert into product values(60,'Denise fish',65,'limited amount','fish',150);
+
+insert into bill VALUES(1,10,3);
+insert into bill VALUES(2,20,5);
+insert into bill VALUES(3,30,4);
+insert into bill VALUES(4,40,1);
+insert into bill VALUES(5,30,1);
+
+insert into orderr values (1,111,9);
+insert into orderr values (2,222,350);
+insert into orderr values (3,333,60);
+insert into orderr values (4,444,75);
+insert into orderr values (5,333,15);
+
+
+
+insert into offer values ( 1,'Eid al-Adha offers',(to_date('20/07/2021','dd/mm/yyyy')),0.3);
+insert into offer values ( 2,'summer offers',(to_date('01/06/2021','dd/mm/yyyy')),0.2);
+insert into offer values ( 3,'supermarket opening offers ',(to_date('22/06/2021','dd/mm/yyyy')),0.1);
+insert into offer values ( 4,'August offers',(to_date('01/08/2021','dd/mm/yyyy')),0.25);
+insert into offer values ( 5,'weekend offers',(to_date('01/07/2021','dd/mm/yyyy')),0.35);
+
+insert into bill_offer values(1,2);
+insert into bill_offer values(2,1);
+insert into bill_offer values(3,5);
+insert into bill_offer values(4,3);
+insert into bill_offer values(5,4);

@@ -1,0 +1,5 @@
+NOTUSED,dell,4GB,256,6/4/1999,palestine
+mypc1,acer,8GB,500GB,9/10/2090,jaban
+mypc2,lenovo,16GB,1TB,5/1/1998,america
+mypc3,toshiba,32GB,2TB,2/7/2000,india
+mypc0,dell,88,256GB,6/4/1999,palestine

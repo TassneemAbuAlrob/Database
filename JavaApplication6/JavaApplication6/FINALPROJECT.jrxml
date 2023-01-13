@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FINALPROJECT" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8938da30-0ca3-45ee-8eb7-8a3cdfcff947">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<queryString language="SQL">
+		<![CDATA[Select o.customer_num , c.fname , count ( o.bill_num) as Number_of_products,
+    sum(o.product_price) as total_price   
+    from customer c ,orderr o
+    where c.customer_num=o.customer_num
+    group by o.customer_num , c.fname]]>
+	</queryString>
+	<field name="CUSTOMER_NUM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="CUSTOMER_NUM"/>
+	</field>
+	<field name="FNAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FNAME"/>
+	</field>
+	<field name="NUMBER_OF_PRODUCTS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="NUMBER_OF_PRODUCTS"/>
+	</field>
+	<field name="TOTAL_PRICE" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="TOTAL_PRICE"/>
+	</field>
+	<group name="FNAME">
+		<groupExpression><![CDATA[$F{FNAME}]]></groupExpression>
+	</group>
+	<group name="CUSTOMER_NUM">
+		<groupExpression><![CDATA[$F{CUSTOMER_NUM}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="-20" y="0" width="440" height="79" forecolor="#ED5700" uuid="a2392af0-2670-4322-8d5b-f97be49d0a6a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Agency FB" size="39" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FRESH SUPERMARKET"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="460" y="-20" width="110" height="99" uuid="124e3476-09f4-4f21-86cd-e242c0dd3956"/>
+				<imageExpression><![CDATA["logo1.jpg.jfif"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="1" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="1" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="598" splitType="Stretch">
+			<pie3DChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="72" width="555" height="200" uuid="afe3227f-a215-4379-b337-71f807809fd2"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{CUSTOMER_NUM}]]></keyExpression>
+					<valueExpression><![CDATA[$F{NUMBER_OF_PRODUCTS}]]></valueExpression>
+					<labelExpression><![CDATA[$F{FNAME}]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+			<staticText>
+				<reportElement x="455" y="72" width="100" height="30" forecolor="#B0110E" uuid="ca1c4d0c-6a0f-4977-ad13-d8605541b9f1"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA["NUMBER OF BILLS"]]></text>
+			</staticText>
+			<pie3DChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="398" width="555" height="200" uuid="1ae18c8c-2f45-480d-a733-079115fb38d4"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{CUSTOMER_NUM}]]></keyExpression>
+					<valueExpression><![CDATA[$F{TOTAL_PRICE}]]></valueExpression>
+					<labelExpression><![CDATA[$F{FNAME}]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+			<staticText>
+				<reportElement x="455" y="398" width="100" height="30" forecolor="#B0110E" uuid="340f00ca-2647-49e7-a718-0d1f4d553393"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA["TOTAL PRICE PAID"]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
